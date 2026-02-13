@@ -20,7 +20,7 @@ app.UseAuthorization();
 app.MapGet("/", () => "API is running! Go to /swagger for API docs");
 
 // Hello endpoint
-app.MapGet("/hello", () => "Hello from Render running .NET 8!");
+app.MapGet("/hello", () => "Hello from Render running .NET 9!");
 
 app.MapControllers();
 
