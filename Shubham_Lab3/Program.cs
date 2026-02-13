@@ -1,26 +1,26 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Enable Swagger in all environments (useful for testing on Render)
+app.UseSwagger();
+app.UseSwaggerUI();
 
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
+// Remove HTTPS redirection for Render (Render handles SSL at the edge)
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapGet("/hello", () => "Hello from your Azure API running .NET 9");
+// Root endpoint for health checks
+app.MapGet("/", () => "API is running! Go to /swagger for API docs");
+
+// Hello endpoint
+app.MapGet("/hello", () => "Hello from Render running .NET 8!");
 
 app.MapControllers();
 
